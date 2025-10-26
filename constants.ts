@@ -2,40 +2,40 @@
 import type { Country, IndustryData, LocalizedMetrics } from './types';
 
 export const COUNTRIES: Country[] = [
-    { name: 'Estados Unidos (USD)', code: 'USD', currencySymbol: '$', usdRate: 1, locale: 'en-US' },
-    { name: 'Europa (EUR)', code: 'EUR', currencySymbol: '€', usdRate: 0.92, locale: 'de-DE' },
+    { name: 'United States (USD)', code: 'USD', currencySymbol: '$', usdRate: 1, locale: 'en-US' },
+    { name: 'Europe (EUR)', code: 'EUR', currencySymbol: '€', usdRate: 0.92, locale: 'de-DE' },
     { name: 'Colombia (COP)', code: 'COP', currencySymbol: '$', usdRate: 4000, locale: 'es-CO' },
-    { name: 'México (MXN)', code: 'MXN', currencySymbol: '$', usdRate: 18, locale: 'de-DE' },
-    { name: 'España (EUR)', code: 'EUR', currencySymbol: '€', usdRate: 0.92, locale: 'es-ES' },
+    { name: 'Mexico (MXN)', code: 'MXN', currencySymbol: '$', usdRate: 18, locale: 'es-MX' },
+    { name: 'Spain (EUR)', code: 'EUR', currencySymbol: '€', usdRate: 0.92, locale: 'es-ES' },
     { name: 'Argentina (ARS)', code: 'ARS', currencySymbol: '$', usdRate: 900, locale: 'es-AR' },
     { name: 'Chile (CLP)', code: 'CLP', currencySymbol: '$', usdRate: 950, locale: 'es-CL' },
-    { name: 'Perú (PEN)', code: 'PEN', currencySymbol: 'S/', usdRate: 3.75, locale: 'es-PE' },
+    { name: 'Peru (PEN)', code: 'PEN', currencySymbol: 'S/', usdRate: 3.75, locale: 'es-PE' },
     { name: 'Guatemala (GTQ)', code: 'GTQ', currencySymbol: 'Q', usdRate: 7.8, locale: 'es-GT' },
-    { name: 'República Dominicana (DOP)', code: 'DOP', currencySymbol: 'RD$', usdRate: 59, locale: 'es-DO' },
-    { name: 'Brasil (BRL)', code: 'BRL', currencySymbol: 'R$', usdRate: 5.1, locale: 'pt-BR' },
+    { name: 'Dominican Republic (DOP)', code: 'DOP', currencySymbol: 'RD$', usdRate: 59, locale: 'es-DO' },
+    { name: 'Brazil (BRL)', code: 'BRL', currencySymbol: 'R$', usdRate: 5.1, locale: 'pt-BR' },
 ];
 
 export const INDUSTRY_OPTIONS = [
-    { value: 'automotriz', label: 'Automotriz' },
-    { value: 'electronica-y-alta-tecnologia', label: 'Electrónica y Alta Tecnología' },
-    { value: 'electrodomesticos-y-electronica-consumo', label: 'Electrodomésticos y Electrónica de Consumo' },
-    { value: 'maquinaria-industrial', label: 'Maquinaria Industrial' },
-    { value: 'semiconductores', label: 'Semiconductores' },
-    { value: 'equipos-de-construccion', label: 'Equipos de Construcción' },
-    { value: 'fabricacion-de-plasticos-moldeo', label: 'Fabricación de Plásticos (Moldeo)' },
-    { value: 'aeroespacial-y-defensa', label: 'Aeroespacial y Defensa' },
-    { value: 'dispositivos-medicos', label: 'Dispositivos Médicos' },
-    { value: 'ingenieria-electrica', label: 'Ingeniería Eléctrica' },
-    { value: 'ingenieria-mecanica', label: 'Ingeniería Mecánica' },
-    { value: 'robotica-y-automatizacion', label: 'Robótica y Automatización' },
-    { value: 'telecomunicaciones', label: 'Equipos de Telecomunicaciones' },
-    { value: 'bienes-de-consumo-y-juguetes', label: 'Bienes de Consumo y Juguetes' },
-    { value: 'hvac', label: 'HVAC (Calefacción, Ventilación y A/A)' },
-    { value: 'iluminacion', label: 'Iluminación Comercial y Residencial' },
-    { value: 'instrumentacion-cientifica', label: 'Instrumentación Científica y de Medición' },
-    { value: 'muebles-y-accesorios', label: 'Muebles y Accesorios' },
-    { value: 'equipamiento-deportivo', label: 'Equipamiento Deportivo' },
-    { value: 'herramientas-y-troqueles', label: 'Herramientas y Troqueles' },
+    { value: 'automotive', label: 'Automotive' },
+    { value: 'electronics-and-high-tech', label: 'Electronics and High-Tech' },
+    { value: 'home-appliances-and-consumer-electronics', label: 'Home Appliances and Consumer Electronics' },
+    { value: 'industrial-machinery', label: 'Industrial Machinery' },
+    { value: 'semiconductors', label: 'Semiconductors' },
+    { value: 'construction-equipment', label: 'Construction Equipment' },
+    { value: 'plastics-manufacturing-molding', label: 'Plastics Manufacturing (Molding)' },
+    { value: 'aerospace-and-defense', label: 'Aerospace and Defense' },
+    { value: 'medical-devices', label: 'Medical Devices' },
+    { value: 'electrical-engineering', label: 'Electrical Engineering' },
+    { value: 'mechanical-engineering', label: 'Mechanical Engineering' },
+    { value: 'robotics-and-automation', label: 'Robotics and Automation' },
+    { value: 'telecommunications-equipment', label: 'Telecommunications Equipment' },
+    { value: 'consumer-goods-and-toys', label: 'Consumer Goods and Toys' },
+    { value: 'hvac', label: 'HVAC (Heating, Ventilation & A/C)' },
+    { value: 'commercial-and-residential-lighting', label: 'Commercial and Residential Lighting' },
+    { value: 'scientific-and-measurement-instrumentation', label: 'Scientific and Measurement Instrumentation' },
+    { value: 'furniture-and-fixtures', label: 'Furniture and Fixtures' },
+    { value: 'sports-equipment', label: 'Sports Equipment' },
+    { value: 'tool-and-die', label: 'Tool and Die' },
 ];
 
 const createLocalizedMetrics = (usd: number, cop: number, mxn: number, eur: number, ars: number, clp: number, pen: number, gtq: number, dop: number, brl: number): LocalizedMetrics => ({
@@ -44,70 +44,70 @@ const createLocalizedMetrics = (usd: number, cop: number, mxn: number, eur: numb
 
 
 export const SECTORS: Record<string, string[]> = {
-    'maquinaria-industrial': [
-        'Equipos CNC', 'Robots industriales', 'Sistemas de transporte y manipulación', 'Maquinaria de envasado', 'Maquinaria de embalaje', 'Bombas y compresores', 'Sistemas hidráulicos', 'Sistemas neumáticos', 'Prensas mecánicas', 'Equipos de soldadura', 'Maquinaria agrícola', 'Maquinaria para procesamiento de alimentos', 'Maquinaria minera', 'Sistemas de elevación', 'Maquinaria de construcción ligera', 'Sistemas de control industrial', 'Maquinaria de impresión', 'Maquinaria para reciclaje', 'Maquinaria de medición', 'Equipos de mantenimiento industrial'
+    'industrial-machinery': [
+        'CNC Equipment', 'Industrial Robots', 'Conveyor and Handling Systems', 'Packaging Machinery', 'Packing Machinery', 'Pumps and Compressors', 'Hydraulic Systems', 'Pneumatic Systems', 'Mechanical Presses', 'Welding Equipment', 'Agricultural Machinery', 'Food Processing Machinery', 'Mining Machinery', 'Lifting Systems', 'Light Construction Machinery', 'Industrial Control Systems', 'Printing Machinery', 'Recycling Machinery', 'Measurement Machinery', 'Industrial Maintenance Equipment'
     ],
-    'ingenieria-mecanica': [
-        'Transmisiones', 'Actuadores', 'Engranajes', 'Bombas centrífugas', 'Compresores', 'Válvulas de control', 'Ejes y acoplamientos', 'Cojinetes y soportes', 'Sistemas de refrigeración industrial', 'Mecanismos de precisión', 'Unidades de potencia', 'Sistemas de lubricación', 'Estructuras metálicas', 'Convertidores térmicos', 'Sistemas de vibración', 'Convertidores mecánicos', 'Mecanismos de leva', 'Sistemas de control de movimiento', 'Convertidores de par', 'Ensamblajes mecánicos modulares'
+    'mechanical-engineering': [
+        'Transmissions', 'Actuators', 'Gears', 'Centrifugal Pumps', 'Compressors', 'Control Valves', 'Shafts and Couplings', 'Bearings and Supports', 'Industrial Cooling Systems', 'Precision Mechanisms', 'Power Units', 'Lubrication Systems', 'Metal Structures', 'Thermal Converters', 'Vibration Systems', 'Mechanical Converters', 'Cam Mechanisms', 'Motion Control Systems', 'Torque Converters', 'Modular Mechanical Assemblies'
     ],
-    'ingenieria-electrica': [
-        'Motores eléctricos', 'Tableros eléctricos', 'Fuentes de poder', 'Transformadores', 'Generadores', 'Inversores', 'Convertidores de frecuencia', 'Paneles de control', 'Disyuntores', 'Contactores', 'Relés', 'Unidades de respaldo UPS', 'Sistemas de distribución', 'Módulos de protección eléctrica', 'Reguladores de voltaje', 'Arrancadores suaves', 'Sensores eléctricos', 'Conectores industriales', 'Sistemas de control de energía', 'Cables de alta tensión'
+    'electrical-engineering': [
+        'Electric Motors', 'Electrical Panels', 'Power Supplies', 'Transformers', 'Generators', 'Inverters', 'Frequency Converters', 'Control Panels', 'Circuit Breakers', 'Contactors', 'Relays', 'UPS Backup Units', 'Distribution Systems', 'Electrical Protection Modules', 'Voltage Regulators', 'Soft Starters', 'Electrical Sensors', 'Industrial Connectors', 'Power Control Systems', 'High Voltage Cables'
     ],
-    'automotriz': [
-        'Carrocerías', 'Chasis', 'Motores', 'Transmisiones', 'Sistemas eléctricos', 'Módulos electrónicos', 'Interiores', 'Sistemas de frenos', 'Suspensiones', 'Ejes motrices', 'Sistemas de escape', 'Sistemas de climatización', 'Sistemas de seguridad', 'Sistemas de iluminación', 'Módulos de batería', 'Trenes de rodaje', 'Paneles de instrumentos', 'Sistemas de infoentretenimiento', 'Direcciones asistidas', 'Puertas y techos modulares'
+    'automotive': [
+        'Bodyworks', 'Chassis', 'Engines', 'Transmissions', 'Electrical Systems', 'Electronic Modules', 'Interiors', 'Brake Systems', 'Suspensions', 'Drive Axles', 'Exhaust Systems', 'Climate Control Systems', 'Safety Systems', 'Lighting Systems', 'Battery Modules', 'Undercarriages', 'Instrument Panels', 'Infotainment Systems', 'Power Steering', 'Modular Doors and Roofs'
     ],
-    'electronica-y-alta-tecnologia': [
-        'Microprocesadores', 'Tarjetas madre', 'Placas electrónicas', 'Módulos de potencia', 'Fuentes de alimentación', 'Sensores', 'Módulos IoT', 'Unidades de procesamiento', 'Baterías', 'Pantallas', 'Cámaras', 'Dispositivos de comunicación', 'Routers', 'Módulos de conectividad', 'Dispositivos portátiles', 'Convertidores', 'Sistemas de refrigeración', 'Módulos ópticos', 'Paneles de visualización', 'Ensamblajes SMT'
+    'electronics-and-high-tech': [
+        'Microprocessors', 'Motherboards', 'Electronic Boards', 'Power Modules', 'Power Supplies', 'Sensors', 'IoT Modules', 'Processing Units', 'Batteries', 'Displays', 'Cameras', 'Communication Devices', 'Routers', 'Connectivity Modules', 'Wearable Devices', 'Converters', 'Cooling Systems', 'Optical Modules', 'Display Panels', 'SMT Assemblies'
     ],
-    'aeroespacial-y-defensa': [
-        'Fuselajes', 'Alas', 'Motores turbofan', 'Aviónica', 'Sistemas de control de vuelo', 'Cabinas', 'Estructuras compuestas', 'Sistemas eléctricos', 'Trenes de aterrizaje', 'Góndolas', 'Sistemas hidráulicos', 'Sistemas de combustible', 'Sistemas de comunicación', 'Sistemas de radar', 'Módulos de navegación', 'Estabilizadores', 'Puertas', 'Asientos', 'Sistemas de oxigenación', 'Tanques presurizados'
+    'aerospace-and-defense': [
+        'Fuselages', 'Wings', 'Turbofan Engines', 'Avionics', 'Flight Control Systems', 'Cockpits', 'Composite Structures', 'Electrical Systems', 'Landing Gear', 'Nacelles', 'Hydraulic Systems', 'Fuel Systems', 'Communication Systems', 'Radar Systems', 'Navigation Modules', 'Stabilizers', 'Doors', 'Seats', 'Oxygen Systems', 'Pressurized Tanks'
     ],
-    'dispositivos-medicos': [
-        'Equipos de diagnóstico', 'Monitores multiparámetro', 'Analizadores clínicos', 'Ventiladores', 'Bombas de infusión', 'Desfibriladores', 'Módulos de cirugía asistida', 'Equipos laparoscópicos', 'Sistemas de esterilización', 'Marcapasos', 'Prótesis', 'Camas hospitalarias', 'Incubadoras', 'Sistemas dentales', 'Respiradores portátiles', 'Equipos de rehabilitación', 'Sillas de ruedas eléctricas', 'Unidades de succión', 'Equipos de laboratorio', 'Módulos de telemetría médica'
+    'medical-devices': [
+        'Diagnostic Equipment', 'Multi-parameter Monitors', 'Clinical Analyzers', 'Ventilators', 'Infusion Pumps', 'Defibrillators', 'Assisted Surgery Modules', 'Laparoscopic Equipment', 'Sterilization Systems', 'Pacemakers', 'Prosthetics', 'Hospital Beds', 'Incubators', 'Dental Systems', 'Portable Respirators', 'Rehabilitation Equipment', 'Electric Wheelchairs', 'Suction Units', 'Laboratory Equipment', 'Medical Telemetry Modules'
     ],
-    'robotica-y-automatizacion': [
-        'Brazos robóticos', 'Controladores', 'Servomotores', 'Sistemas de visión', 'Actuadores lineales', 'Sensores de fuerza', 'Pinzas', 'Reductores', 'Módulos de IA', 'Estaciones de trabajo robotizadas', 'Transportadores', 'Módulos electrónicos', 'Tarjetas de control', 'Estructuras mecánicas', 'Paneles de control', 'Convertidores de frecuencia', 'Módulos de calibración', 'Sistemas de seguridad', 'Conectores industriales', 'Unidades de comunicación'
+    'robotics-and-automation': [
+        'Robotic Arms', 'Controllers', 'Servomotors', 'Vision Systems', 'Linear Actuators', 'Force Sensors', 'Grippers', 'Reducers', 'AI Modules', 'Robotic Workstations', 'Conveyors', 'Electronic Modules', 'Control Boards', 'Mechanical Structures', 'Control Panels', 'Frequency Converters', 'Calibration Modules', 'Safety Systems', 'Industrial Connectors', 'Communication Units'
     ],
-    'equipos-de-construccion': [
-        'Excavadoras', 'Cargadores', 'Grúas', 'Retroexcavadoras', 'Motoniveladoras', 'Compactadores', 'Motores diésel', 'Sistemas hidráulicos', 'Transmisiones pesadas', 'Chasis', 'Cabinas de operación', 'Brazos articulados', 'Trenes de rodaje', 'Pavimentadoras', 'Perforadoras', 'Torretas giratorias', 'Módulos de enfriamiento', 'Sistemas de control', 'Ejes de tracción'
+    'construction-equipment': [
+        'Excavators', 'Loaders', 'Cranes', 'Backhoes', 'Motor Graders', 'Compactors', 'Diesel Engines', 'Hydraulic Systems', 'Heavy-duty Transmissions', 'Chassis', 'Operator Cabs', 'Articulated Arms', 'Undercarriages', 'Pavers', 'Drills', 'Rotating Turrets', 'Cooling Modules', 'Control Systems', 'Drive Axles'
     ],
-    'herramientas-y-troqueles': [
-        'Moldes de precisión', 'Matrices de corte', 'Prensas de troquelado', 'Sistemas de punzonado', 'Herramientas de mecanizado', 'Dispositivos de sujeción', 'Matrices progresivas', 'Prensas hidráulicas', 'Cabezales de fresado', 'Portamoldes', 'Calibradores', 'Herramientas de torque', 'Portaherramientas', 'Dispositivos de alineación', 'Sistemas de ajuste', 'Herramientas neumáticas', 'Dispositivos de control dimensional', 'Sistemas de guiado', 'Dispositivos de montaje', 'Estaciones de prueba'
+    'tool-and-die': [
+        'Precision Molds', 'Cutting Dies', 'Stamping Presses', 'Punching Systems', 'Machining Tools', 'Clamping Devices', 'Progressive Dies', 'Hydraulic Presses', 'Milling Heads', 'Mold Bases', 'Calipers', 'Torque Tools', 'Tool Holders', 'Alignment Devices', 'Adjustment Systems', 'Pneumatic Tools', 'Dimensional Control Devices', 'Guiding Systems', 'Assembly Devices', 'Testing Stations'
     ],
     'hvac': [
-        'Aires acondicionados', 'Chillers', 'Bombas de calor', 'Unidades condensadoras', 'Evaporadores', 'Compresores', 'Ventiladores', 'Intercambiadores de calor', 'Sistemas de control', 'Torres de enfriamiento', 'Ductos modulares', 'Válvulas de expansión', 'Termostatos', 'Sensores térmicos', 'Filtros', 'Paneles eléctricos', 'Estructuras metálicas', 'Unidades de refrigeración', 'Módulos de climatización', 'Sistemas de bombeo', 'Controladores electrónicos'
+        'Air Conditioners', 'Chillers', 'Heat Pumps', 'Condensing Units', 'Evaporators', 'Compressors', 'Fans', 'Heat Exchangers', 'Control Systems', 'Cooling Towers', 'Modular Ducts', 'Expansion Valves', 'Thermostats', 'Thermal Sensors', 'Filters', 'Electrical Panels', 'Metal Structures', 'Refrigeration Units', 'Climate Control Modules', 'Pumping Systems', 'Electronic Controllers'
     ],
-    'muebles-y-accesorios': [
-        'Estructuras metálicas', 'Herrajes', 'Mecanismos reclinables', 'Sistemas de deslizamiento', 'Bisagras', 'Marcos de sillas', 'Unidades de almacenamiento', 'Módulos de ensamblaje', 'Bases giratorias', 'Rieles', 'Patas ajustables', 'Soportes', 'Anclajes', 'Sistemas de iluminación integrada', 'Mecanismos hidráulicos', 'Perfiles de aluminio', 'Uniones modulares', 'Cierres magnéticos', 'Sistemas de amortiguación', 'Accesorios ergonómicos'
+    'furniture-and-fixtures': [
+        'Metal Structures', 'Hardware', 'Reclining Mechanisms', 'Sliding Systems', 'Hinges', 'Chair Frames', 'Storage Units', 'Assembly Modules', 'Swivel Bases', 'Rails', 'Adjustable Legs', 'Brackets', 'Anchors', 'Integrated Lighting Systems', 'Hydraulic Mechanisms', 'Aluminum Profiles', 'Modular Joints', 'Magnetic Latches', 'Damping Systems', 'Ergonomic Accessories'
     ],
-    'bienes-de-consumo-y-juguetes': [
-        'Electrodomésticos portátiles', 'Aspiradoras', 'Juguetes electrónicos', 'Consolas de juego', 'Relojes inteligentes', 'Scooters eléctricos', 'Bicicletas', 'Drones recreativos', 'Sistemas de audio portátiles', 'Robots interactivos', 'Máquinas de café', 'Patinetas eléctricas', 'Purificadores', 'Lámparas inteligentes', 'Ventiladores', 'Herramientas domésticas', 'Cepillos eléctricos', 'Dispensadores automáticos', 'Dispositivos de cocina', 'Cargadores portátiles'
+    'consumer-goods-and-toys': [
+        'Portable Appliances', 'Vacuum Cleaners', 'Electronic Toys', 'Game Consoles', 'Smartwatches', 'Electric Scooters', 'Bicycles', 'Recreational Drones', 'Portable Audio Systems', 'Interactive Robots', 'Coffee Machines', 'Electric Skateboards', 'Purifiers', 'Smart Lamps', 'Fans', 'Household Tools', 'Electric Toothbrushes', 'Automatic Dispensers', 'Kitchen Devices', 'Portable Chargers'
     ],
-    'electrodomesticos-y-electronica-consumo': [
-        'Refrigeradores', 'Lavadoras', 'Televisores LED', 'Televisores OLED', 'Hornos microondas', 'Aspiradoras', 'Aires acondicionados', 'Lavavajillas', 'Secadoras', 'Hornos eléctricos', 'Cocinas de inducción', 'Sistemas de sonido envolvente', 'Barras de sonido', 'Consolas de videojuegos', 'Robots aspiradores', 'Licuadoras', 'Batidoras', 'Procesadores de alimentos', 'Cafeteras', 'Freidoras de aire', 'Congeladores', 'Cocinas de gas', 'Campanas extractoras', 'Purificadores de aire', 'Calefactores eléctricos', 'Deshumidificadores', 'Ventiladores', 'Planchas eléctricas', 'Tostadoras', 'Hervidores eléctricos', 'Dispensadores de agua', 'Proyectores domésticos', 'Parlantes Bluetooth', 'Equipos de audio de alta fidelidad', 'Reproductores multimedia', 'Monitores domésticos', 'Routers Wi-Fi', 'Cámaras de seguridad para el hogar', 'Timbres inteligentes'
+    'home-appliances-and-consumer-electronics': [
+        'Refrigerators', 'Washing Machines', 'LED TVs', 'OLED TVs', 'Microwave Ovens', 'Vacuum Cleaners', 'Air Conditioners', 'Dishwashers', 'Dryers', 'Electric Ovens', 'Induction Cooktops', 'Surround Sound Systems', 'Soundbars', 'Video Game Consoles', 'Robot Vacuums', 'Blenders', 'Mixers', 'Food Processors', 'Coffee Makers', 'Air Fryers', 'Freezers', 'Gas Stoves', 'Extractor Hoods', 'Air Purifiers', 'Electric Heaters', 'Dehumidifiers', 'Fans', 'Electric Irons', 'Toasters', 'Electric Kettles', 'Water Dispensers', 'Home Projectors', 'Bluetooth Speakers', 'Hi-Fi Audio Equipment', 'Media Players', 'Home Monitors', 'Wi-Fi Routers', 'Home Security Cameras', 'Smart Doorbells'
     ],
-    'equipamiento-deportivo': [
-        'Bicicletas', 'Equipos de gimnasio', 'Caminadoras', 'Máquinas elípticas', 'Pesas ajustables', 'Bancos de entrenamiento', 'Máquinas multifuncionales', 'Bicicletas estáticas', 'Scooters deportivos', 'Patinetas eléctricas', 'Rodillos', 'Remos', 'Estructuras metálicas', 'Sistemas de resistencia', 'Dispositivos electrónicos de control', 'Sensores de rendimiento', 'Módulos de amortiguación', 'Soportes', 'Estructuras de entrenamiento', 'Simuladores deportivos'
+    'sports-equipment': [
+        'Bicycles', 'Gym Equipment', 'Treadmills', 'Elliptical Machines', 'Adjustable Weights', 'Training Benches', 'Multi-functional Machines', 'Stationary Bikes', 'Sports Scooters', 'Electric Skateboards', 'Rollers', 'Rowing Machines', 'Metal Structures', 'Resistance Systems', 'Electronic Control Devices', 'Performance Sensors', 'Damping Modules', 'Brackets', 'Training Structures', 'Sports Simulators'
     ],
-    'fabricacion-de-plasticos-moldeo': [
-        'Componentes automotrices', 'Carcasas', 'Envases industriales', 'Piezas de electrodomésticos', 'Componentes médicos', 'Gabinetes electrónicos', 'Módulos de ensamblaje plástico', 'Partes estructurales', 'Cubiertas protectoras', 'Conectores', 'Bandejas', 'Piezas de iluminación', 'Herramientas plásticas', 'Accesorios de consumo', 'Paneles frontales', 'Interruptores', 'Carcasas de sensores', 'Cajas modulares', 'Marcos', 'Componentes de mobiliario'
+    'plastics-manufacturing-molding': [
+        'Automotive Components', 'Housings', 'Industrial Containers', 'Appliance Parts', 'Medical Components', 'Electronic Enclosures', 'Plastic Assembly Modules', 'Structural Parts', 'Protective Covers', 'Connectors', 'Trays', 'Lighting Parts', 'Plastic Tools', 'Consumer Accessories', 'Front Panels', 'Switches', 'Sensor Housings', 'Modular Boxes', 'Frames', 'Furniture Components'
     ],
-    'iluminacion': [
-        'Luminarias LED', 'Paneles de luz', 'Tiras LED', 'Proyectores', 'Lámparas colgantes', 'Sistemas de iluminación empotrada', 'Luminarias industriales', 'Fuentes de alimentación', 'Controladores', 'Disipadores térmicos', 'Módulos ópticos', 'Balastros', 'Sensores de movimiento', 'Reflectores', 'Estructuras metálicas', 'Difusores', 'Conectores', 'Carcasas', 'Sistemas de montaje', 'Módulos de emergencia'
+    'commercial-and-residential-lighting': [
+        'LED Luminaires', 'Light Panels', 'LED Strips', 'Projectors', 'Pendant Lamps', 'Recessed Lighting Systems', 'Industrial Luminaires', 'Power Supplies', 'Controllers', 'Heat Sinks', 'Optical Modules', 'Ballasts', 'Motion Sensors', 'Reflectors', 'Metal Structures', 'Diffusers', 'Connectors', 'Housings', 'Mounting Systems', 'Emergency Modules'
     ],
-    'telecomunicaciones': [
-        'Estaciones base', 'Antenas', 'Routers', 'Módulos de transmisión', 'Tarjetas electrónicas', 'Gabinetes', 'Cables de fibra óptica', 'Amplificadores de señal', 'Módulos de potencia', 'Convertidores', 'Sistemas de refrigeración', 'Racks', 'Paneles de conexión', 'Módulos ópticos', 'Fuentes redundantes', 'Unidades de control', 'Dispositivos de comunicación', 'Conectores', 'Repetidores', 'Módulos de interfaz'
+    'telecommunications-equipment': [
+        'Base Stations', 'Antennas', 'Routers', 'Transmission Modules', 'Electronic Boards', 'Cabinets', 'Fiber Optic Cables', 'Signal Amplifiers', 'Power Modules', 'Converters', 'Cooling Systems', 'Racks', 'Patch Panels', 'Optical Modules', 'Redundant Power Supplies', 'Control Units', 'Communication Devices', 'Connectors', 'Repeaters', 'Interface Modules'
     ],
-    'semiconductores': [
-        'Procesadores', 'Chips integrados', 'Módulos de memoria', 'Obleas de silicio', 'Encapsulados', 'Sensores CMOS', 'Circuitos integrados', 'Módulos de potencia', 'Convertidores', 'Transistores', 'Diodos', 'Resistencias', 'Condensadores', 'Módulos de comunicación', 'Unidades de almacenamiento', 'Controladores', 'Tarjetas electrónicas', 'Disipadores', 'Módulos de prueba', 'Paquetes multichip'
+    'semiconductors': [
+        'Processors', 'Integrated Chips', 'Memory Modules', 'Silicon Wafers', 'Packages', 'CMOS Sensors', 'Integrated Circuits', 'Power Modules', 'Converters', 'Transistors', 'Diodes', 'Resistors', 'Capacitors', 'Communication Modules', 'Storage Units', 'Controllers', 'Electronic Boards', 'Heat Sinks', 'Test Modules', 'Multi-chip Packages'
     ],
-    'instrumentacion-cientifica': [
-        'Sensores de presión', 'Transmisores de flujo', 'Analizadores de gases', 'Espectrómetros', 'Módulos de adquisición de datos', 'Controladores PID', 'Transductores', 'Indicadores digitales', 'Válvulas motorizadas', 'Actuadores', 'Termorresistencias', 'Módulos de calibración', 'Convertidores de señal', 'Fuentes de poder', 'Sistemas de registro', 'Controladores distribuidos', 'Módulos ópticos', 'Unidades de monitoreo', 'Gabinetes de instrumentación', 'Terminales de operación'
+    'scientific-and-measurement-instrumentation': [
+        'Pressure Sensors', 'Flow Transmitters', 'Gas Analyzers', 'Spectrometers', 'Data Acquisition Modules', 'PID Controllers', 'Transducers', 'Digital Indicators', 'Motorized Valves', 'Actuators', 'RTDs', 'Calibration Modules', 'Signal Converters', 'Power Supplies', 'Recording Systems', 'Distributed Controllers', 'Optical Modules', 'Monitoring Units', 'Instrumentation Cabinets', 'Operator Terminals'
     ]
 };
 
 export const INDUSTRY_METRICS: Record<string, IndustryData> = {
-    'automotriz': {
+    'automotive': {
         baseMetrics: { 
             averageEngineerSalary: createLocalizedMetrics(85000, 95000000, 750000, 60000, 45000000, 50000000, 100000, 180000, 900000, 200000),
             reworkCost: createLocalizedMetrics(7500, 30000000, 135000, 6900, 6750000, 7125000, 28125, 58500, 442500, 38250),
@@ -118,7 +118,7 @@ export const INDUSTRY_METRICS: Record<string, IndustryData> = {
             siloCostMultiplier: 0.30,
         },
         sectors: {
-            'Motores': { 
+            'Engines': { 
                 averageEngineerSalary: createLocalizedMetrics(95000, 110000000, 850000, 68000, 51000000, 57000000, 115000, 200000, 1000000, 230000),
                 reworkCost: createLocalizedMetrics(9000, 36000000, 162000, 8200, 8100000, 8550000, 33750, 69000, 530000, 45000),
                 newProductRevenue: createLocalizedMetrics(6000000, 24000000000, 108000000, 5500000, 5400000000, 5700000000, 22500000, 46800000, 354000000, 30600000),
@@ -129,7 +129,7 @@ export const INDUSTRY_METRICS: Record<string, IndustryData> = {
             },
         }
     },
-    'electronica-y-alta-tecnologia': {
+    'electronics-and-high-tech': {
         baseMetrics: { 
             averageEngineerSalary: createLocalizedMetrics(90000, 100000000, 800000, 65000, 48000000, 54000000, 110000, 190000, 950000, 220000),
             reworkCost: createLocalizedMetrics(4500, 18000000, 81000, 4100, 4050000, 4275000, 16875, 35100, 265500, 22950),
@@ -140,8 +140,7 @@ export const INDUSTRY_METRICS: Record<string, IndustryData> = {
             siloCostMultiplier: 0.25,
         }
     },
-    // Add more industries with localized data...
-    'manufactura-discreta-general': {
+    'general-discrete-manufacturing': {
         baseMetrics: {
             averageEngineerSalary: createLocalizedMetrics(70000, 80000000, 600000, 50000, 35000000, 40000000, 80000, 150000, 750000, 160000),
             reworkCost: createLocalizedMetrics(5000, 20000000, 90000, 4600, 4500000, 4750000, 18750, 39000, 295000, 25500),
@@ -155,7 +154,7 @@ export const INDUSTRY_METRICS: Record<string, IndustryData> = {
 };
 
 // Populate the rest of the industries by copying the general manufacturing data
-const generalMetrics = INDUSTRY_METRICS['manufactura-discreta-general'];
+const generalMetrics = INDUSTRY_METRICS['general-discrete-manufacturing'];
 INDUSTRY_OPTIONS.forEach(opt => {
     if (!INDUSTRY_METRICS[opt.value]) {
         INDUSTRY_METRICS[opt.value] = generalMetrics;

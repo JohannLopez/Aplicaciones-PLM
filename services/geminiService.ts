@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 import type { FormData, Country, CalculationResult } from '../types';
 import { INDUSTRY_OPTIONS } from '../constants';
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = process.env.API_KEY;
 if (!API_KEY) {
     throw new Error("API_KEY environment variable not set");
 }
@@ -26,45 +26,45 @@ export async function generateQualitativeAnalysis(formData: FormData, country: C
         ? formData.otherSector
         : formData.sector;
         
-    const infoLocationText = formData.infoLocation === 'personal_pc' ? 'PCs personales (alta descentralización)' : 'Sistema corporativo (centralizado)';
+    const infoLocationText = formData.infoLocation === 'personal_pc' ? 'Personal PCs (highly decentralized)' : 'Corporate system (centralized)';
 
     const prompt = `
-        Actúa como un consultor de estrategia de negocio senior, especializado en la optimización de procesos para empresas de manufactura mediante sistemas PLM (Product Lifecycle Management).
-        Tu tarea es tomar los datos y los resultados de costos ya calculados que te proporciono, y generar un análisis escrito persuasivo y profesional en formato JSON.
+        Act as a senior business strategy consultant specializing in process optimization for manufacturing companies using PLM (Product Lifecycle Management) systems.
+        Your task is to take the data and pre-calculated cost results I provide and generate a persuasive and professional written analysis in JSON format.
 
-        Datos de la Empresa y Contexto:
-        - Nombre de la Empresa: ${formData.companyName}
-        - Industria: ${industryName}
-        ${sectorName ? `- Sector Específico: ${sectorName}` : ''}
-        - País: ${country.name}
-        - Moneda: ${country.code}
-        - Estructura: ${formData.engineers} ingenieros en ${formData.numSites} sitios y ${formData.numCountries} países.
-        - Gestión de Información: ${infoLocationText}.
+        Company Data and Context:
+        - Company Name: ${formData.companyName}
+        - Industry: ${industryName}
+        ${sectorName ? `- Specific Sector: ${sectorName}` : ''}
+        - Country: ${country.name}
+        - Currency: ${country.code}
+        - Structure: ${formData.engineers} engineers across ${formData.numSites} sites and ${formData.numCountries} countries.
+        - Information Management: ${infoLocationText}.
 
-        Resultados Numéricos (YA CALCULADOS - NO LOS CAMBIES):
-        - Pérdida Anual Total Estimada: ${calculatedData.totalCost.toLocaleString('es-ES', { style: 'currency', currency: country.code })}
-        - Desglose de Costos:
-        ${calculatedData.costBreakdown.map(item => `  - ${item.category}: ${item.cost.toLocaleString('es-ES', { style: 'currency', currency: country.code })}`).join('\n')}
+        Numerical Results (ALREADY CALCULATED - DO NOT CHANGE THEM):
+        - Total Estimated Annual Loss: ${calculatedData.totalCost.toLocaleString('en-US', { style: 'currency', currency: country.code })}
+        - Cost Breakdown:
+        ${calculatedData.costBreakdown.map(item => `  - ${item.category}: ${item.cost.toLocaleString('en-US', { style: 'currency', currency: country.code })}`).join('\n')}
 
-        Instrucciones para la Generación de Contenido (Tu Tarea - DEBES DEVOLVER ÚNICAMENTE EL JSON):
-        Basado en los números y el contexto, completa los siguientes campos de texto:
+        Content Generation Instructions (Your Task - YOU MUST RETURN ONLY THE JSON):
+        Based on the numbers and context, complete the following text fields:
 
-        1.  **summary (Resumen Ejecutivo)**: Escribe un párrafo de nivel ejecutivo. Enmarca el 'totalCost' (${calculatedData.totalCost.toLocaleString()}) como un riesgo estratégico para una empresa con una estructura distribuida (${formData.numSites} sitios). Define este costo como una 'fuga de capital' que inhibe la innovación. Posiciona un PLM como la inversión crítica para unificar la información, optimizar la colaboración multi-sitio y fortalecer la competitividad.
+        1.  **summary (Executive Summary)**: Write an executive-level paragraph. Frame the 'totalCost' (${calculatedData.totalCost.toLocaleString()}) as a strategic risk for a company with a distributed structure (${formData.numSites} sites). Define this cost as a 'capital drain' that inhibits innovation. Position a PLM as the critical investment to unify information, optimize multi-site collaboration, and strengthen competitiveness.
 
-        2.  **costBreakdown (Solo las 'explanation')**: Para cada uno de los 4 ítems en el desglose, escribe una "Reflexión del Consultor" ('explanation'). Conecta el costo numérico con una debilidad de proceso, considerando la estructura de la empresa y su gestión de datos.
-            - Para "${calculatedData.costBreakdown[0].category}" (${calculatedData.costBreakdown[0].cost.toLocaleString()}): Explica cómo la complejidad de tener ${formData.numSites} sitios y ${formData.numCountries} países crea una sobrecarga de comunicación y búsqueda de datos que un PLM centralizado elimina.
-            - Para "${calculatedData.costBreakdown[1].category}" (${calculatedData.costBreakdown[1].cost.toLocaleString()}): Vincula los retrabajos con la falta de una "única fuente de verdad", un problema exacerbado por equipos distribuidos y datos no centralizados.
-            - Para "${calculatedData.costBreakdown[2].category}" (${calculatedData.costBreakdown[2].cost.toLocaleString()}): Argumenta que los retrasos son una consecuencia directa de la fricción operativa (comunicación ineficiente y retrabajos), impidiendo la agilidad necesaria para competir.
-            - Para "${calculatedData.costBreakdown[3].category}" (${calculatedData.costBreakdown[3].cost.toLocaleString()}): ${formData.infoLocation === 'personal_pc' ? `Enfatiza que almacenar datos en PCs es el mayor riesgo operativo, creando 'silos' que garantizan el uso de información obsoleta. Explica que el costo calculado es una prima de riesgo que la empresa paga por no tener control sobre sus activos intelectuales.` : `Felicita la decisión de usar un sistema corporativo, pero advierte que sin una estructura PLM formal, incluso los sistemas centralizados pueden volverse desorganizados y generar costos ocultos. Menciona que el costo de riesgo es cero gracias a esta buena práctica inicial.`}
+        2.  **costBreakdown (Only the 'explanation' fields)**: For each of the 4 items in the breakdown, write a "Consultant's Insight" ('explanation'). Connect the numerical cost to a process weakness, considering the company's structure and data management.
+            - For "${calculatedData.costBreakdown[0].category}" (${calculatedData.costBreakdown[0].cost.toLocaleString()}): Explain how the complexity of having ${formData.numSites} sites and ${formData.numCountries} countries creates communication and data-searching overhead that a centralized PLM eliminates.
+            - For "${calculatedData.costBreakdown[1].category}" (${calculatedData.costBreakdown[1].cost.toLocaleString()}): Link reworks to the lack of a "single source of truth," a problem exacerbated by distributed teams and non-centralized data.
+            - For "${calculatedData.costBreakdown[2].category}" (${calculatedData.costBreakdown[2].cost.toLocaleString()}): Argue that delays are a direct consequence of operational friction (inefficient communication and reworks), preventing the agility needed to compete.
+            - For "${calculatedData.costBreakdown[3].category}" (${calculatedData.costBreakdown[3].cost.toLocaleString()}): ${formData.infoLocation === 'personal_pc' ? `Emphasize that storing data on PCs is the biggest operational risk, creating 'silos' that guarantee the use of outdated information. Explain that the calculated cost is a risk premium the company pays for not having control over its intellectual assets.` : `Praise the decision to use a corporate system, but warn that without a formal PLM structure, even centralized systems can become disorganized and generate hidden costs. Mention that the risk cost is zero thanks to this good initial practice.`}
 
-        3.  **methodologyNotes**: Escribe un breve resumen de los supuestos. Menciona que los cálculos se basan en métricas que modelan la complejidad de la colaboración en equipos distribuidos y los riesgos de la gestión de datos descentralizada, ofreciendo una estimación realista.
+        3.  **methodologyNotes**: Write a brief summary of the assumptions. Mention that the calculations are based on metrics that model the complexity of collaboration in distributed teams and the risks of decentralized data management, offering a realistic estimate.
 
-        4.  **chartInterpretations**: Escribe una interpretación para cada tipo de gráfico, contextualizada a los desafíos de una empresa con ${formData.numSites} sitios.
-            - **bar**: Explica qué revela la comparación de las barras. ¿El mayor costo proviene de la complejidad estructural (colaboración), de la ejecución (retrabajos/retrasos) o del riesgo (silos)?
-            - **pie**: Analiza la distribución porcentual. ¿Muestra un problema concentrado o varios problemas contribuyentes? ¿Cómo ayuda esto a priorizar una inversión en PLM?
-            - **radar**: Describe el "perfil de ineficiencia". Un valor alto en 'Nº Sitios' y 'Nº Países' sugiere problemas de escala y complejidad. Un valor alto en 'Retrabajos' o 'Retrasos' sugiere problemas de calidad de proceso. ¿Qué perfil emerge?
+        4.  **chartInterpretations**: Write an interpretation for each chart type, contextualized to the challenges of a company with ${formData.numSites} sites.
+            - **bar**: Explain what the comparison of the bars reveals. Does the biggest cost come from structural complexity (collaboration), execution (reworks/delays), or risk (silos)?
+            - **pie**: Analyze the percentage distribution. Does it show one concentrated problem or several contributing issues? How does this help prioritize a PLM investment?
+            - **radar**: Describe the "inefficiency profile." A high value in 'No. of Sites' and 'No. of Countries' suggests scale and complexity issues. A high value in 'Reworks' or 'Delays' suggests process quality problems. What profile emerges?
 
-        Formato de Salida JSON (completa los campos 'explanation', 'summary', etc.):
+        JSON Output Format (complete the 'explanation', 'summary', etc. fields):
         {
             "summary": "...",
             "explanations": [
@@ -103,7 +103,7 @@ export async function generateQualitativeAnalysis(formData: FormData, country: C
             chartInterpretations: qualitativeData.chartInterpretations,
             costBreakdown: calculatedData.costBreakdown.map((item, index) => ({
                 ...item,
-                explanation: qualitativeData.explanations[index]?.explanation || "Análisis no disponible.",
+                explanation: qualitativeData.explanations[index]?.explanation || "Analysis not available.",
             })),
         };
 

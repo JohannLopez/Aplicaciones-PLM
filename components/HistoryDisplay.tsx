@@ -15,25 +15,25 @@ export const HistoryDisplay: React.FC<HistoryDisplayProps> = ({ history, onClear
 
     const handleDownload = () => {
         const headers = [
-            "Nombre Empresa",
-            "Industria",
+            "Company Name",
+            "Industry",
             "Sector",
-            "País",
-            "Nº de Ingenieros / Diseñadores",
-            "Nº de sitios",
-            "Nº de países",
-            "Ubicación Info",
-            "Nuevos productos / Revisiones al año",
-            "Nº de re-trabajos en producción por producto",
-            "Semanas de retraso promedio por producto",
-            "Pérdida Anual Total",
-            "Costo Colaboración",
-            "Costo Retrabajos",
-            "Costo Retraso",
-            "Costo Riesgo Silos",
-            "Salario Anual Utilizado",
-            "Costo por Retrabajo Utilizado",
-            "Ingreso Anual por Producto Utilizado"
+            "Country",
+            "No. of Engineers / Designers",
+            "No. of Sites",
+            "No. of Countries",
+            "Info Location",
+            "New Products / Revisions per Year",
+            "No. of Reworks per Product",
+            "Avg. Weeks of Delay per Product",
+            "Total Annual Loss",
+            "Collaboration Cost",
+            "Rework Cost",
+            "Delay Cost",
+            "Silo Risk Cost",
+            "Used Annual Salary",
+            "Used Cost per Rework",
+            "Used Annual Revenue per Product"
         ];
     
         const csvContent = [
@@ -75,15 +75,15 @@ export const HistoryDisplay: React.FC<HistoryDisplayProps> = ({ history, onClear
                     entry.formData.engineers,
                     entry.formData.numSites,
                     entry.formData.numCountries,
-                    entry.formData.infoLocation === 'personal_pc' ? 'PC Personal' : 'Sistema Corporativo',
+                    entry.formData.infoLocation === 'personal_pc' ? 'Personal PC' : 'Corporate System',
                     entry.formData.newProducts,
                     entry.formData.reworks,
                     entry.formData.delays,
                     Math.round(entry.result.totalCost),
-                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Colaboración"))?.cost ?? 0),
-                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Re-trabajos"))?.cost ?? 0),
-                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Oportunidad"))?.cost ?? 0),
-                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Información Aislada"))?.cost ?? 0),
+                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Collaboration"))?.cost ?? 0),
+                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Rework"))?.cost ?? 0),
+                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Opportunity"))?.cost ?? 0),
+                    Math.round(entry.result.costBreakdown.find(c => c.category.includes("Information Silos"))?.cost ?? 0),
                     getMetricCsvValue('averageEngineerSalary'),
                     getMetricCsvValue('reworkCost'),
                     getMetricCsvValue('newProductRevenue'),
@@ -98,7 +98,7 @@ export const HistoryDisplay: React.FC<HistoryDisplayProps> = ({ history, onClear
         if (link.download !== undefined) {
             const url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
-            link.setAttribute("download", "historial_analisis_costos.csv");
+            link.setAttribute("download", "cost_analysis_history.csv");
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
@@ -115,23 +115,23 @@ export const HistoryDisplay: React.FC<HistoryDisplayProps> = ({ history, onClear
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                 <div>
                     <h2 className="text-xl md:text-2xl font-bold text-slate-800">
-                        Historial de Análisis
+                        Analysis History
                     </h2>
                     <p className="text-sm text-slate-600 mt-1">
-                        Tiene <span className="font-bold text-slate-800">{history.length}</span> análisis guardados en esta sesión.
+                        You have <span className="font-bold text-slate-800">{history.length}</span> analyses saved in this session.
                     </p>
                 </div>
                 <div className="flex items-center space-x-2 self-start sm:self-center">
                     <button onClick={handleDownload} className="flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-md hover:bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500">
                         <DownloadIcon />
-                        <span className="ml-2">Descargar</span>
+                        <span className="ml-2">Download</span>
                     </button>
                     <button onClick={onClearHistory} className="flex items-center justify-center px-4 py-2 text-sm font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                         <TrashIcon />
-                        <span className="ml-2">Limpiar</span>
+                        <span className="ml-2">Clear</span>
                     </button>
                     <button onClick={onClose} className="flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-md hover:bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500">
-                        Ocultar
+                        Hide
                     </button>
                 </div>
             </div>

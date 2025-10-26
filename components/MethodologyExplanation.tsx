@@ -20,21 +20,21 @@ const JustificationText: React.FC<{ overrideCount: number }> = ({ overrideCount 
         <div className="space-y-3 text-xs">
             {allOverridden ? (
                 <>
-                    <p><strong>Fuente de Datos:</strong> Todos los cálculos se basan en los valores reales proporcionados por usted. Esto convierte el análisis en un reflejo financiero preciso de las ineficiencias operativas específicas de su empresa, eliminando las estimaciones de mercado.</p>
-                    <p><strong>Propósito del Valor:</strong> Al utilizar sus propios datos, la calculadora ofrece un resultado completamente personalizado que refleja la realidad de sus operaciones y costos.</p>
-                    <p><strong>Precisión del Cálculo:</strong> El resultado es un reflejo directo de la información que ha proporcionado, lo que resulta en el análisis más preciso posible de su situación actual.</p>
+                    <p><strong>Data Source:</strong> All calculations are based on the actual values you provided. This transforms the analysis into an accurate financial reflection of your company's specific operational inefficiencies, eliminating market estimates.</p>
+                    <p><strong>Value's Purpose:</strong> By using your own data, the calculator offers a fully customized result that reflects the reality of your operations and costs.</p>
+                    <p><strong>Calculation Accuracy:</strong> The result is a direct reflection of the information you have provided, leading to the most accurate possible analysis of your current situation.</p>
                 </>
             ) : someOverridden ? (
                 <>
-                    <p><strong>Fuente de Datos:</strong> Este análisis combina estimaciones conservadoras de la industria con datos reales proporcionados por usted. Esta aproximación mixta aumenta significativamente la precisión del cálculo, adaptándolo mejor a la realidad financiera de su empresa mientras se mantiene un benchmark de mercado para las demás variables.</p>
-                    <p><strong>Propósito del Valor:</strong> Los valores de la industria actúan como un punto de referencia creíble para las variables que no fueron modificadas, mientras que los datos que usted proporcionó aseguran que las áreas clave del cálculo sean lo más precisas posible.</p>
-                    <p><strong>Valores Conservadores y Reales:</strong> Las estimaciones de la aplicación son deliberadamente conservadoras para proporcionar un "piso" creíble. La combinación con sus datos reales da como resultado un análisis híbrido y robusto.</p>
+                    <p><strong>Data Source:</strong> This analysis combines conservative industry estimates with actual data provided by you. This mixed approach significantly increases the calculation's accuracy, adapting it better to your company's financial reality while maintaining a market benchmark for other variables.</p>
+                    <p><strong>Value's Purpose:</strong> The industry values act as a credible benchmark for the variables that were not modified, while the data you provided ensures that key areas of the calculation are as accurate as possible.</p>
+                    <p><strong>Conservative and Real Values:</strong> The application's estimates are deliberately conservative to provide a credible "floor." The combination with your actual data results in a robust, hybrid analysis.</p>
                 </>
             ) : (
                  <>
-                    <p><strong>Fuente de Datos:</strong> Los valores se basan en un análisis de métricas económicas para cada país y sector, utilizando fuentes de dominio público como encuestas salariales y reportes de costos industriales. Representan un consenso estadístico para una empresa de tamaño mediano, sirviendo como un benchmark localizado y robusto.</p>
-                    <p><strong>Propósito del Valor:</strong> El objetivo no es adivinar el costo exacto de un error particular en su empresa, sino usar un promedio de mercado creíble y defendible para que el cálculo sea representativo a nivel estratégico.</p>
-                    <p><strong>Son Conservadores a Propósito:</strong> Se eligieron deliberadamente para ser conservadores. En muchos casos, los costos reales pueden ser mucho más altos. Esto asegura que la estimación de pérdida sea un "piso" creíble y difícil de refutar, en lugar de una exageración.</p>
+                    <p><strong>Data Source:</strong> The values are based on an analysis of economic metrics for each country and sector, using public domain sources such as salary surveys and industrial cost reports. They represent a statistical consensus for a medium-sized company, serving as a robust, localized benchmark.</p>
+                    <p><strong>Value's Purpose:</strong> The goal is not to guess the exact cost of a particular error in your company, but to use a credible and defensible market average to make the calculation strategically representative.</p>
+                    <p><strong>Purposely Conservative:</strong> They were deliberately chosen to be conservative. In many cases, actual costs can be much higher. This ensures that the loss estimate is a credible and hard-to-refute "floor" rather than an exaggeration.</p>
                 </>
             )}
         </div>
@@ -44,8 +44,8 @@ const JustificationText: React.FC<{ overrideCount: number }> = ({ overrideCount 
 
 export const MethodologyExplanation: React.FC<MethodologyExplanationProps> = ({ formData, country, metricOverrides }) => {
     const { industry, sector, countryCode } = formData;
-    const industryKey = industry === 'other' ? 'manufactura-discreta-general' : industry;
-    const industryData = INDUSTRY_METRICS[industryKey] || INDUSTRY_METRICS['manufactura-discreta-general'];
+    const industryKey = industry === 'other' ? 'general-discrete-manufacturing' : industry;
+    const industryData = INDUSTRY_METRICS[industryKey] || INDUSTRY_METRICS['general-discrete-manufacturing'];
     
     const isSpecificSector = sector && sector !== 'other' && industryData.sectors?.[sector];
     const metrics = isSpecificSector
@@ -54,7 +54,7 @@ export const MethodologyExplanation: React.FC<MethodologyExplanationProps> = ({ 
     
     const industryLabel = industry === 'other' && formData.otherIndustry 
         ? formData.otherIndustry
-        : INDUSTRY_OPTIONS.find(opt => opt.value === industry)?.label || 'Industria General';
+        : INDUSTRY_OPTIONS.find(opt => opt.value === industry)?.label || 'General Industry';
     
     const sectorLabel = sector === 'other' && formData.otherSector
         ? formData.otherSector
@@ -77,33 +77,33 @@ export const MethodologyExplanation: React.FC<MethodologyExplanationProps> = ({ 
 
     return (
         <div className="bg-white rounded-lg shadow-xl p-6 md:p-8 mt-6 text-sm text-slate-700 animate-fadeIn space-y-6">
-            <h3 className="text-xl font-bold text-slate-800 text-center">Justificación de Métricas y Supuestos</h3>
+            <h3 className="text-xl font-bold text-slate-800 text-center">Metrics and Assumptions Rationale</h3>
 
             <div className="space-y-2">
-                <h4 className="font-semibold text-lg text-slate-800">1. Las Variables Financieras Base (Editables)</h4>
+                <h4 className="font-semibold text-lg text-slate-800">1. Base Financial Variables (Editable)</h4>
                 <p>
-                    Para garantizar consistencia y fiabilidad, la calculadora utiliza tres métricas de costo financiero base. Estos valores son estimaciones de mercado localizadas para su país y sector. La herramienta le permite <span className="font-bold">editar estos valores</span> en el desglose de costos para reflejar con mayor precisión la realidad de su empresa.
+                    To ensure consistency and reliability, the calculator uses three base financial cost metrics. These values are localized market estimates for your country and sector. The tool allows you to <span className="font-bold">edit these values</span> in the cost breakdown to more accurately reflect your company's reality.
                 </p>
                 <ul className="list-disc list-inside pl-4 space-y-2 bg-slate-50 p-4 rounded-md">
                     <li>
-                        <strong>Salario Anual de Ingeniero:</strong>
-                        {isOverridden('averageEngineerSalary') && <span className="text-green-600 font-semibold text-xs ml-2">(Valor Personalizado)</span>}
+                        <strong>Annual Engineer Salary:</strong>
+                        {isOverridden('averageEngineerSalary') && <span className="text-green-600 font-semibold text-xs ml-2">(Custom Value)</span>}
                         <span className="block pl-4">
                             {formatCurrency(getMetricValue('averageEngineerSalary', metrics), country.currencySymbol, country.locale)}
                             {country.code !== 'USD' && ` (${formatCurrency(getUsdEquivalent(getMetricValue('averageEngineerSalary', metrics)), '$', 'en-US')})`}
                         </span>
                     </li>
                     <li>
-                        <strong>Costo por Retrabajo:</strong>
-                        {isOverridden('reworkCost') && <span className="text-green-600 font-semibold text-xs ml-2">(Valor Personalizado)</span>}
+                        <strong>Cost per Rework:</strong>
+                        {isOverridden('reworkCost') && <span className="text-green-600 font-semibold text-xs ml-2">(Custom Value)</span>}
                         <span className="block pl-4">
                             {formatCurrency(getMetricValue('reworkCost', metrics), country.currencySymbol, country.locale)}
                             {country.code !== 'USD' && ` (${formatCurrency(getUsdEquivalent(getMetricValue('reworkCost', metrics)), '$', 'en-US')})`}
                         </span>
                     </li>
                     <li>
-                        <strong>Ingreso Anual por Producto:</strong>
-                        {isOverridden('newProductRevenue') && <span className="text-green-600 font-semibold text-xs ml-2">(Valor Personalizado)</span>}
+                        <strong>Annual Revenue per Product:</strong>
+                        {isOverridden('newProductRevenue') && <span className="text-green-600 font-semibold text-xs ml-2">(Custom Value)</span>}
                         <span className="block pl-4">
                             {formatCurrency(getMetricValue('newProductRevenue', metrics), country.currencySymbol, country.locale)}
                             {country.code !== 'USD' && ` (${formatCurrency(getUsdEquivalent(getMetricValue('newProductRevenue', metrics)), '$', 'en-US')})`}
@@ -113,32 +113,32 @@ export const MethodologyExplanation: React.FC<MethodologyExplanationProps> = ({ 
             </div>
 
             <div className="space-y-2">
-                <h4 className="font-semibold text-lg text-slate-800">2. Las Variables Operativas Base (No Editables)</h4>
+                <h4 className="font-semibold text-lg text-slate-800">2. Base Operational Variables (Non-Editable)</h4>
                 <p>
-                    Los costos de Colaboración y Riesgo por Silos se derivan de métricas operativas estándar de la industria. Estas modelan la complejidad inherente a equipos distribuidos y la gestión de información descentralizada.
+                    The costs for Collaboration and Silo Risk are derived from standard industry operational metrics. These model the complexity inherent in distributed teams and decentralized information management.
                 </p>
                  <ul className="list-disc list-inside pl-4 space-y-2 bg-slate-50 p-4 rounded-md">
                     <li>
-                        <strong>Horas Base de Ineficiencia Semanal:</strong>
-                        <span className="block pl-4">{metrics.baseWastedHours} horas por ingeniero</span>
+                        <strong>Base Weekly Inefficiency Hours:</strong>
+                        <span className="block pl-4">{metrics.baseWastedHours} hours per engineer</span>
                     </li>
                      <li>
-                        <strong>Ineficiencia Adicional por Sitio:</strong>
-                        <span className="block pl-4">{metrics.hoursPerSite} horas por cada sitio adicional</span>
+                        <strong>Additional Inefficiency per Site:</strong>
+                        <span className="block pl-4">{metrics.hoursPerSite} hours per additional site</span>
                     </li>
                      <li>
-                        <strong>Ineficiencia Adicional por País:</strong>
-                        <span className="block pl-4">{metrics.hoursPerCountry} horas por cada país adicional</span>
+                        <strong>Additional Inefficiency per Country:</strong>
+                        <span className="block pl-4">{metrics.hoursPerCountry} hours per additional country</span>
                     </li>
                      <li>
-                        <strong>Multiplicador de Riesgo por Silos:</strong>
-                        <span className="block pl-4">{metrics.siloCostMultiplier * 100}% (aplicado a costos de retrabajo y retraso)</span>
+                        <strong>Silo Risk Multiplier:</strong>
+                        <span className="block pl-4">{metrics.siloCostMultiplier * 100}% (applied to rework and delay costs)</span>
                     </li>
                 </ul>
             </div>
             
             <div className="space-y-2">
-                <h4 className="font-semibold text-lg text-slate-800">3. Justificación: ¿Son Reales estos Valores?</h4>
+                <h4 className="font-semibold text-lg text-slate-800">3. Rationale: Are These Values Realistic?</h4>
                 <JustificationText overrideCount={overrideCount} />
             </div>
         </div>

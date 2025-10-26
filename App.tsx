@@ -22,7 +22,7 @@ const App: React.FC = () => {
     sector: '',
     sectorInput: '',
     otherSector: '',
-    countryCode: 'COP',
+    countryCode: 'USD',
     engineers: '10',
     numSites: '1',
     numCountries: '1',
@@ -111,11 +111,11 @@ const App: React.FC = () => {
   ): Promise<CalculationResult> => {
     const selectedCountry = COUNTRIES.find(c => c.code === currentFormData.countryCode);
     if (!selectedCountry) {
-        throw new Error("País seleccionado no válido.");
+        throw new Error("Selected country is not valid.");
     }
     
-    const industryKey = currentFormData.industry === 'other' ? 'manufactura-discreta-general' : currentFormData.industry;
-    const industryData = INDUSTRY_METRICS[industryKey] || INDUSTRY_METRICS['manufactura-discreta-general'];
+    const industryKey = currentFormData.industry === 'other' ? 'general-discrete-manufacturing' : currentFormData.industry;
+    const industryData = INDUSTRY_METRICS[industryKey] || INDUSTRY_METRICS['general-discrete-manufacturing'];
     
     const isSpecificSector = currentFormData.sector && currentFormData.sector !== 'other' && industryData.sectors?.[currentFormData.sector];
     const metrics = isSpecificSector
@@ -165,66 +165,66 @@ const App: React.FC = () => {
     const totalCost = collaborationCost + reworksCost + delayCost + siloRiskCost;
 
     // --- NARRATIVES FOR GEMINI ---
-    const salaryText = `El salario anual promedio de un ingeniero se estima en ${formatCurrency(averageEngineerSalary, selectedCountry.currencySymbol, selectedCountry.locale)}`;
-    const collaborationNarrative = `${salaryText}. Con una estructura de ${numSites} sitios en ${numCountries} países, se estima una ineficiencia en comunicación y búsqueda de datos de ${calculatedWastedHours.toFixed(1)} horas/semana por ingeniero. Para ${numEngineers} ingenieros, esto representa una pérdida anual de ${formatCurrency(collaborationCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`;
+    const salaryText = `The average annual salary of an engineer is estimated at ${formatCurrency(averageEngineerSalary, selectedCountry.currencySymbol, selectedCountry.locale)}`;
+    const collaborationNarrative = `${salaryText}. With a structure of ${numSites} sites in ${numCountries} countries, an inefficiency in communication and data searching is estimated at ${calculatedWastedHours.toFixed(1)} hours/week per engineer. For ${numEngineers} engineers, this represents an annual loss of ${formatCurrency(collaborationCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`;
 
-    const reworkText = `A un costo estimado de ${formatCurrency(reworkCost, selectedCountry.currencySymbol, selectedCountry.locale)} por ciclo`;
-    const reworkNarrative = `Con ${numNewProducts} nuevos productos y ${numReworks} retrabajos por cada uno, la empresa enfrenta ${numNewProducts * numReworks} ciclos de retrabajo. ${reworkText}, la pérdida anual es de ${formatCurrency(reworksCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`;
+    const reworkText = `At an estimated cost of ${formatCurrency(reworkCost, selectedCountry.currencySymbol, selectedCountry.locale)} per cycle`;
+    const reworkNarrative = `With ${numNewProducts} new products and ${numReworks} reworks for each, the company faces ${numNewProducts * numReworks} rework cycles. ${reworkText}, the annual loss is ${formatCurrency(reworksCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`;
     
-    const revenueText = `Si un nuevo producto genera ingresos anuales de ${formatCurrency(newProductRevenue, selectedCountry.currencySymbol, selectedCountry.locale)}`;
-    const delayNarrative = `${revenueText}, cada semana de retraso representa una pérdida de ${formatCurrency(newProductRevenue / 52, selectedCountry.currencySymbol, selectedCountry.locale)}. Con un retraso de ${numDelays} semanas en ${numNewProducts} productos, el costo de oportunidad es de ${formatCurrency(delayCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`;
+    const revenueText = `If a new product generates annual revenue of ${formatCurrency(newProductRevenue, selectedCountry.currencySymbol, selectedCountry.locale)}`;
+    const delayNarrative = `${revenueText}, each week of delay represents a loss of ${formatCurrency(newProductRevenue / 52, selectedCountry.currencySymbol, selectedCountry.locale)}. With a delay of ${numDelays} weeks on ${numNewProducts} products, the opportunity cost is ${formatCurrency(delayCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`;
 
     const siloNarrative = currentFormData.infoLocation === 'personal_pc'
-        ? `Almacenar datos críticos en PCs personales introduce un riesgo significativo. Este método descentralizado aumenta la probabilidad de errores y retrabajos. Se aplica un multiplicador de riesgo del ${siloCostMultiplier * 100}% a los costos de retrabajo y retrasos, resultando en un costo adicional por riesgo de ${formatCurrency(siloRiskCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`
-        : "Utilizar un sistema corporativo centralizado es una buena práctica que mitiga los riesgos de información aislada. Este costo es cero.";
+        ? `Storing critical data on personal PCs introduces significant risk. This decentralized method increases the likelihood of errors and reworks. A risk multiplier of ${siloCostMultiplier * 100}% is applied to rework and delay costs, resulting in an additional risk cost of ${formatCurrency(siloRiskCost, selectedCountry.currencySymbol, selectedCountry.locale)}.`
+        : "Using a centralized corporate system is a good practice that mitigates the risks of isolated information. This cost is zero.";
 
 
     const costBreakdown: CostBreakdownItem[] = [
         {
-            category: "Costo de Ineficiencia por Colaboración Distribuida",
+            category: "Cost of Inefficiency from Distributed Collaboration",
             cost: collaborationCost,
             explanation: "",
-            methodologyFormula: `(${formatCurrency(averageEngineerSalary, selectedCountry.currencySymbol, selectedCountry.locale)}/año ÷ 52 sem) × ${calculatedWastedHours.toFixed(1)}h × ${numEngineers} ing.`,
+            methodologyFormula: `(${formatCurrency(averageEngineerSalary, selectedCountry.currencySymbol, selectedCountry.locale)}/year ÷ 52 wk) × ${calculatedWastedHours.toFixed(1)}h × ${numEngineers} eng.`,
             metricKey: 'averageEngineerSalary',
             metricValue: averageEngineerSalary,
-            metricLabel: 'Salario Anual',
-            metricSource: '(basado en estándares de la industria).',
+            metricLabel: 'Annual Salary',
+            metricSource: '(based on industry standards).',
             calculationNarrative: collaborationNarrative,
             isMetricOverridden: !!currentMetricOverrides.averageEngineerSalary,
         },
         {
-            category: "Costo por Re-trabajos de Ingeniería y Producción",
+            category: "Cost of Engineering and Production Rework",
             cost: reworksCost,
             explanation: "",
-            methodologyFormula: `${numNewProducts} productos × ${numReworks} retrabajos/prod × ${formatCurrency(reworkCost, selectedCountry.currencySymbol, selectedCountry.locale)}/retrabajo`,
+            methodologyFormula: `${numNewProducts} products × ${numReworks} reworks/prod × ${formatCurrency(reworkCost, selectedCountry.currencySymbol, selectedCountry.locale)}/rework`,
             metricKey: 'reworkCost',
             metricValue: reworkCost,
-            metricLabel: 'Costo por Retrabajo',
-            metricSource: '(basado en estándares de la industria).',
+            metricLabel: 'Cost per Rework',
+            metricSource: '(based on industry standards).',
             calculationNarrative: reworkNarrative,
             isMetricOverridden: !!currentMetricOverrides.reworkCost,
         },
         {
-            category: "Costo de Oportunidad por Retraso en el Mercado",
+            category: "Opportunity Cost from Market Delay",
             cost: delayCost,
             explanation: "",
-            methodologyFormula: `(${formatCurrency(newProductRevenue, selectedCountry.currencySymbol, selectedCountry.locale)}/prod ÷ 52 sem) × ${numDelays} sem × ${numNewProducts} prod`,
+            methodologyFormula: `(${formatCurrency(newProductRevenue, selectedCountry.currencySymbol, selectedCountry.locale)}/prod ÷ 52 wk) × ${numDelays} wk × ${numNewProducts} prod`,
             metricKey: 'newProductRevenue',
             metricValue: newProductRevenue,
-            metricLabel: 'Ingreso Anual por Producto',
-            metricSource: '(basado en estándares de la industria).',
+            metricLabel: 'Annual Revenue per Product',
+            metricSource: '(based on industry standards).',
             calculationNarrative: delayNarrative,
             isMetricOverridden: !!currentMetricOverrides.newProductRevenue,
         },
         {
-            category: "Costo del Riesgo por Información Aislada (Silos)",
+            category: "Cost of Risk from Information Silos",
             cost: siloRiskCost,
             explanation: "",
-            methodologyFormula: currentFormData.infoLocation === 'personal_pc' ? `(${formatCurrency(reworksCost, selectedCountry.currencySymbol, selectedCountry.locale)} + ${formatCurrency(delayCost, selectedCountry.currencySymbol, selectedCountry.locale)}) × ${siloCostMultiplier * 100}%` : 'Costo Cero por usar sistema centralizado',
+            methodologyFormula: currentFormData.infoLocation === 'personal_pc' ? `(${formatCurrency(reworksCost, selectedCountry.currencySymbol, selectedCountry.locale)} + ${formatCurrency(delayCost, selectedCountry.currencySymbol, selectedCountry.locale)}) × ${siloCostMultiplier * 100}%` : 'Zero cost for using a centralized system',
             metricKey: 'siloCostMultiplier',
             metricValue: siloCostMultiplier,
-            metricLabel: 'Multiplicador de Riesgo por Silos',
-            metricSource: '(basado en estándares de la industria).',
+            metricLabel: 'Silo Risk Multiplier',
+            metricSource: '(based on industry standards).',
             calculationNarrative: siloNarrative,
             isMetricOverridden: false, // This metric is not user-editable for now
         }
@@ -250,7 +250,7 @@ const App: React.FC = () => {
     setHasOverrides(false);
     
     if (!formData.industry || !formData.industryInput) {
-        setError("Por favor, seleccione o especifique una industria.");
+        setError("Please select or specify an industry.");
         setIsLoading(false);
         return;
     }
@@ -279,7 +279,7 @@ const App: React.FC = () => {
 
     } catch (err) {
         console.error(err);
-        setError('Hubo un error al generar el análisis. Por favor, intente de nuevo.');
+        setError('There was an error generating the analysis. Please try again.');
     } finally {
         setIsLoading(false);
     }
@@ -328,7 +328,7 @@ const App: React.FC = () => {
         
     } catch (err) {
         console.error(err);
-        setError('Hubo un error al recalcular el análisis. Por favor, intente de nuevo.');
+        setError('There was an error recalculating the analysis. Please try again.');
     } finally {
         setIsLoading(false);
     }
@@ -359,7 +359,7 @@ const App: React.FC = () => {
       <main className="w-full max-w-4xl mx-auto my-8 space-y-8">
         <div className="bg-white rounded-lg shadow-xl p-8 md:p-12">
             <h1 className="text-2xl md:text-3xl font-bold text-center text-slate-800 mb-8">
-                Calculadora Avanzada de Costos de Ineficiencia
+                Advanced Inefficiency Cost Calculator
             </h1>
             <CalculatorForm 
                 formData={formData} 
@@ -373,7 +373,7 @@ const App: React.FC = () => {
         {isLoading && (
             <div className="flex justify-center items-center text-slate-600">
                 <LoadingSpinner isWhite={false} />
-                <span className="ml-2">Analizando datos y generando informe...</span>
+                <span className="ml-2">Analyzing data and generating report...</span>
             </div>
         )}
 
@@ -415,7 +415,7 @@ const App: React.FC = () => {
                             onClick={() => setIsHistoryVisible(true)}
                             className="bg-white text-slate-700 font-semibold py-2 px-4 border border-slate-300 rounded-lg shadow-sm hover:bg-slate-50 transition-colors duration-300"
                         >
-                            Ver Historial de Análisis ({history.length})
+                            View Analysis History ({history.length})
                         </button>
                     </div>
                 )}

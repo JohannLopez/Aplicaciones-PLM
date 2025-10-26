@@ -39,19 +39,13 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
     const [chartType, setChartType] = useState<ChartType>('bar');
 
     const chartData = useMemo(() => {
-        const capitalizeFirstLetter = (str: string): string => {
-            if (!str) return '';
-            return str.charAt(0).toUpperCase() + str.slice(1);
-        };
-        
         const filteredBreakdown = result.costBreakdown.filter(item => item.cost > 0);
         
-        const costLabels = filteredBreakdown.map(item => capitalizeFirstLetter(
+        const costLabels = filteredBreakdown.map(item => 
             item.category
-                .replace('Costo de ', '')
-                .replace('Costo por ', '')
-                .replace('Costo del ', '')
-        ));
+                .replace(/Cost of |Cost from /i, '')
+                .replace(/Inefficiency from /i, '')
+        );
         const costData = filteredBreakdown.map(item => item.cost);
 
         const inputData = [
@@ -66,7 +60,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
         
         const normalizedInputData = inputData.map(val => (maxInputValue > 0 ? (val / maxInputValue) * 100 : 0));
         
-        const inputLabels = ['Nº Ingenieros', 'Nº Sitios', 'Nº Países', 'Nº Retrabajos', 'Semanas Retraso'];
+        const inputLabels = ['No. Engineers', 'No. Sites', 'No. Countries', 'No. Reworks', 'Weeks Delay'];
 
         return { costLabels, costData, inputLabels, normalizedInputData };
     }, [result, formData]);
@@ -96,7 +90,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
                     data: {
                         labels: chartData.inputLabels,
                         datasets: [{
-                            label: 'Perfil de Ineficiencia (Normalizado)',
+                            label: 'Inefficiency Profile (Normalized)',
                             data: chartData.normalizedInputData,
                             backgroundColor: 'rgba(54, 162, 235, 0.4)',
                             borderColor: 'rgba(54, 162, 235, 1)',
@@ -109,7 +103,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
                         maintainAspectRatio: false,
                         plugins: {
                             legend: { position: 'top' },
-                            title: { display: true, text: 'Contribución Relativa de Factores de Ineficiencia' },
+                            title: { display: true, text: 'Relative Contribution of Inefficiency Factors' },
                              datalabels: {
                                 display: false, // Disable for this chart type
                             }
@@ -131,7 +125,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
                     data: {
                         labels: chartData.costLabels,
                         datasets: [{
-                            label: 'Distribución de Costos',
+                            label: 'Cost Distribution',
                             data: chartData.costData,
                             backgroundColor: chartColors,
                             borderColor: chartBorderColors,
@@ -145,7 +139,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
                             legend: {
                                 position: 'top',
                             },
-                            title: { display: true, text: 'Distribución Porcentual de Costos de Ineficiencia' },
+                            title: { display: true, text: 'Percentage Distribution of Inefficiency Costs' },
                             tooltip: {
                                 callbacks: {
                                     label: function(context: any) {
@@ -153,7 +147,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
                                         const value = context.raw;
                                         const total = context.chart.data.datasets[0].data.reduce((a: number, b: number) => a + b, 0);
                                         const percentage = total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
-                                        return `${label}: ${currencySymbol} ${value.toLocaleString('es-ES')} (${percentage})`;
+                                        return `${label}: ${currencySymbol} ${value.toLocaleString('en-US')} (${percentage})`;
                                     }
                                 }
                             },
@@ -183,7 +177,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
                     data: {
                         labels: chartData.costLabels,
                         datasets: [{
-                            label: `Valores en ${formData.countryCode}`,
+                            label: `Values in ${formData.countryCode}`,
                             data: chartData.costData,
                             backgroundColor: chartColors,
                             borderColor: chartBorderColors,
@@ -198,11 +192,11 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
                             legend: { display: false },
                             title: { 
                                 display: true, 
-                                text: 'Comparación de Costos de Ineficiencia',
+                                text: 'Comparison of Inefficiency Costs',
                             },
                             subtitle: {
                                 display: true,
-                                text: `Valores en ${formData.countryCode}`,
+                                text: `Values in ${formData.countryCode}`,
                                 padding: {
                                     bottom: 15
                                 }
@@ -245,23 +239,23 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({ result, fo
         </button>
     );
     
-    const interpretation = result.chartInterpretations ? result.chartInterpretations[chartType] : 'Interpretación no disponible.';
+    const interpretation = result.chartInterpretations ? result.chartInterpretations[chartType] : 'Interpretation not available.';
 
     return (
         <div className="bg-white rounded-lg shadow-xl p-6 md:p-8">
             <h2 className="text-xl md:text-2xl font-bold text-center text-slate-800 mb-4">
-                Análisis Visual
+                Visual Analysis
             </h2>
             <div className="flex justify-center space-x-2 mb-6 border-b border-slate-200 pb-4">
-                {renderChartButton('bar', 'Barras')}
-                {renderChartButton('pie', 'Circular')}
+                {renderChartButton('bar', 'Bar')}
+                {renderChartButton('pie', 'Pie')}
                 {renderChartButton('radar', 'Radar')}
             </div>
             <div className="relative h-96 mb-6">
                 <canvas ref={chartRef}></canvas>
             </div>
             <div className="bg-slate-50 p-4 rounded-lg">
-                <h4 className="font-bold text-slate-700 mb-2">Interpretación del Gráfico</h4>
+                <h4 className="font-bold text-slate-700 mb-2">Chart Interpretation</h4>
                 <p className="text-sm text-slate-600 whitespace-pre-wrap">{interpretation}</p>
             </div>
         </div>

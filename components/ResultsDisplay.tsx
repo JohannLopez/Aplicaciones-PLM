@@ -58,13 +58,13 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         let yPos = 35; 
 
         const now = new Date();
-        const reportDate = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        const reportTime = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+        const reportDate = now.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const reportTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         const reportDateTime = `${reportDate} ${reportTime}`;
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(9);
         doc.setTextColor(108, 117, 125);
-        doc.text('Fecha del informe:', pageWidth - margin, margin - 5, { align: 'right' });
+        doc.text('Report Date:', pageWidth - margin, margin - 5, { align: 'right' });
         doc.text(reportDateTime, pageWidth - margin, margin, { align: 'right' });
 
         const checkPageBreak = (currentY: number, requiredHeight: number): number => {
@@ -99,19 +99,19 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(22);
         doc.setTextColor(33, 37, 41);
-        doc.text('Análisis de Costos de Ineficiencia', pageWidth / 2, yPos, { align: 'center' });
+        doc.text('Inefficiency Cost Analysis', pageWidth / 2, yPos, { align: 'center' });
         yPos += 10;
         
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(12);
         doc.setTextColor(108, 117, 125);
-        doc.text(`Resultados para ${formData.companyName} (Empresa con ${formData.engineers} ingenieros)`, pageWidth / 2, yPos, { align: 'center' });
+        doc.text(`Results for ${formData.companyName} (Company with ${formData.engineers} engineers)`, pageWidth / 2, yPos, { align: 'center' });
         yPos += 18;
 
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(14);
         doc.setTextColor(33, 37, 41);
-        doc.text('Pérdida Anual Total Estimada:', margin, yPos);
+        doc.text('Total Estimated Annual Loss:', margin, yPos);
         yPos += 10;
 
         doc.setFont('helvetica', 'bold');
@@ -119,7 +119,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         doc.text(formatCurrency(result.totalCost, currencySymbol, country.locale), margin, yPos);
         yPos += 12;
         
-        const summaryText = `Resumen Ejecutivo: ${result.summary}`;
+        const summaryText = `Executive Summary: ${result.summary}`;
         const summaryHeight = calculateWrappedTextHeight(summaryText, { fontSize: 11, lineHeightFactor: 1.4 });
         yPos = checkPageBreak(yPos, summaryHeight);
         doc.setFont('helvetica', 'normal');
@@ -132,13 +132,13 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(18);
         doc.setTextColor(33, 37, 41);
-        doc.text('Desglose de Costos y Reflexiones', margin, yPos);
+        doc.text('Cost Breakdown and Insights', margin, yPos);
         yPos += breakdownTitleHeight;
 
         result.costBreakdown.filter(item => item.cost > 0).forEach((item) => {
             const categoryText = item.category;
             const costText = formatCurrency(item.cost, currencySymbol, country.locale);
-            const reflectionText = `Reflexión del Consultor: ${item.explanation}`;
+            const reflectionText = `Consultant's Insight: ${item.explanation}`;
             
             const categoryHeight = calculateWrappedTextHeight(categoryText, { fontSize: 12, maxWidth: pageWidth - margin * 2 - 45 });
             const reflectionHeight = calculateWrappedTextHeight(reflectionText, { fontSize: 10, lineHeightFactor: 1.5 });
@@ -168,7 +168,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(18);
         doc.setTextColor(33, 37, 41);
-        doc.text('Análisis Visual de Resultados', margin, yPos);
+        doc.text('Visual Results Analysis', margin, yPos);
         yPos += 12;
         
         const interpretations = result.chartInterpretations;
@@ -191,11 +191,11 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             yPos += drawnTextHeight + 10;
         };
         
-        addInterpretation('Interpretación del Gráfico de Barras', interpretations.bar);
-        addInterpretation('Interpretación del Gráfico Circular', interpretations.pie);
-        addInterpretation('Interpretación del Gráfico de Radar (Perfil de Ineficiencia)', interpretations.radar);
+        addInterpretation('Bar Chart Interpretation', interpretations.bar);
+        addInterpretation('Pie Chart Interpretation', interpretations.pie);
+        addInterpretation('Radar Chart Interpretation (Inefficiency Profile)', interpretations.radar);
 
-        doc.save('analisis_costos_ocultos_plm.pdf');
+        doc.save('hidden_cost_analysis_plm.pdf');
     };
 
     return (
@@ -204,20 +204,20 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 onClick={onReset}
                 className="w-full bg-slate-900 text-white font-bold py-3 px-4 rounded-md hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors duration-300"
             >
-                Realizar Nuevo Análisis
+                Perform New Analysis
             </button>
 
             <div className="text-center">
                 <div className="bg-slate-900 text-white rounded-xl shadow-xl p-8 text-center inline-block w-full">
                     <h2 className="text-lg md:text-xl font-normal text-slate-300 mb-2">
-                        Pérdida Anual Total Estimada
+                        Total Estimated Annual Loss
                     </h2>
                     <p className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
                         {formatCurrency(result.totalCost, currencySymbol, country.locale)}
                     </p>
                 </div>
                 <p className="text-xs text-slate-500 mt-2">
-                    *Valores mostrados en moneda local con una tasa de cambio aproximada y fines ilustrativos.
+                    *Values shown in local currency with an approximate exchange rate for illustrative purposes.
                 </p>
             </div>
 
@@ -229,12 +229,12 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                         className="text-sm text-blue-600 hover:underline focus:outline-none font-semibold"
                         aria-expanded={expandedDetails['summary']}
                     >
-                        {expandedDetails['summary'] ? 'Ocular Resumen Ejecutivo' : 'Ver Resumen Ejecutivo'}
+                        {expandedDetails['summary'] ? 'Hide Executive Summary' : 'View Executive Summary'}
                     </button>
                 </div>
                 {expandedDetails['summary'] && (
                     <p className="text-base text-slate-600 italic mt-4 animate-fadeIn">
-                        <span className="font-semibold">Resumen Ejecutivo:</span> {result.summary}
+                        <span className="font-semibold">Executive Summary:</span> {result.summary}
                     </p>
                 )}
             </div>
@@ -242,7 +242,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             <div className="bg-white rounded-lg shadow-xl p-6 md:p-8">
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
                     <h2 className="text-xl md:text-2xl font-bold text-slate-800">
-                        Desglose de Costos y Reflexiones
+                        Cost Breakdown and Insights
                     </h2>
                     {hasOverrides && (
                          <button
@@ -250,7 +250,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                             disabled={isRecalculating}
                             className="flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300 disabled:cursor-wait"
                         >
-                            {isRecalculating ? <LoadingSpinner /> : 'Recalcular con Nuevos Datos'}
+                            {isRecalculating ? <LoadingSpinner /> : 'Recalculate with New Data'}
                         </button>
                     )}
                 </div>
@@ -258,8 +258,8 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                     {result.costBreakdown.filter(item => item.cost > 0).map((item) => {
                         const detailKey = item.category;
                         const isDetailExpanded = expandedDetails[detailKey];
-                        const metricStatusText = item.isMetricOverridden ? '(Dato de usuario)' : '(Estimado - Editable)';
-                        const metricSourceText = item.isMetricOverridden ? 'Este valor fue proporcionado por usted para el recálculo.' : item.metricSource;
+                        const metricStatusText = item.isMetricOverridden ? '(User Data)' : '(Estimated - Editable)';
+                        const metricSourceText = item.isMetricOverridden ? 'This value was provided by you for the recalculation.' : item.metricSource;
 
                         return (
                             <div key={item.category} className="border-t border-slate-200 pt-6 first:border-t-0 first:pt-0">
@@ -275,13 +275,13 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                                         className="text-xs text-blue-600 hover:underline focus:outline-none"
                                         aria-expanded={isDetailExpanded}
                                     >
-                                        {isDetailExpanded ? 'Ocultar detalle' : 'Ver detalle'}
+                                        {isDetailExpanded ? 'Hide details' : 'View details'}
                                     </button>
                                 </div>
                                 {isDetailExpanded && (
                                     <div className="animate-fadeIn mt-3 text-sm text-slate-600 bg-slate-50 p-4 rounded-md space-y-4">
                                         <div>
-                                            <p className="font-semibold text-slate-700 mb-2">Metodología de Cálculo:</p>
+                                            <p className="font-semibold text-slate-700 mb-2">Calculation Methodology:</p>
                                             <p className='mb-3'>{item.methodologyFormula}</p>
                                              <div className="mt-3">
                                                 <label htmlFor={item.metricKey} className="block text-slate-700 font-medium text-sm mb-1">
@@ -301,11 +301,11 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                                             </div>
                                         </div>
                                         <div className="border-t border-slate-200 pt-3">
-                                            <p className="font-semibold text-slate-700 mb-1">Justificación del Cálculo (Paso a Paso):</p>
+                                            <p className="font-semibold text-slate-700 mb-1">Calculation Rationale (Step-by-Step):</p>
                                             <p className="whitespace-pre-wrap">{item.calculationNarrative}</p>
                                         </div>
                                         <div className="border-t border-slate-200 pt-3">
-                                            <p className="font-semibold text-slate-700 mb-1">Reflexión del Consultor:</p>
+                                            <p className="font-semibold text-slate-700 mb-1">Consultant's Insight:</p>
                                             <p className="whitespace-pre-wrap">{item.explanation}</p>
                                         </div>
                                     </div>
@@ -322,7 +322,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                     className="text-sm text-blue-600 hover:underline focus:outline-none mt-1 font-semibold"
                     aria-expanded={showMethodology}
                 >
-                    {showMethodology ? 'Ocultar Justificación de Métricas y Supuestos' : 'Ver Justificación de Métricas y Supuestos'}
+                    {showMethodology ? 'Hide Metrics & Assumptions Rationale' : 'View Metrics & Assumptions Rationale'}
                 </button>
             </div>
 
@@ -343,12 +343,12 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
             </div>
 
             <div className="text-center text-slate-700 space-y-3 text-base pt-4">
-                <p>Este número representa una fuga de capital que podría ser invertido en innovación y crecimiento.</p>
-                <p>Una estrategia PLM puede recuperar hasta el 70% de estos costos.</p>
+                <p>This number represents a capital drain that could be invested in innovation and growth.</p>
+                <p>A PLM strategy can recover up to 70% of these costs.</p>
                 <p>
-                    ¿Agendamos una llamada de 15 minutos para un diagnóstico gratuito?{' '}
+                    Shall we schedule a 15-minute call for a free diagnosis?{' '}
                     <a href="https://calendly.com/johann-lopez-rockwellconsults/30min" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-semibold hover:text-blue-800">
-                        Iniciemos la conversación.
+                        Let's start the conversation.
                     </a>
                 </p>
             </div>
@@ -357,7 +357,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                 onClick={handleDownloadPdf}
                 className="w-full bg-teal-500 text-white font-bold py-3 px-4 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-400 transition-colors duration-300"
             >
-                Descargar Resultados en PDF
+                Download Results as PDF
             </button>
         </div>
     );

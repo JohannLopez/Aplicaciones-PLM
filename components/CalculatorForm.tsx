@@ -53,21 +53,21 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ formData, onForm
     <form onSubmit={onSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 mb-6">
             <div>
-                <label htmlFor="companyName" className="block text-sm font-medium text-slate-700 mb-1">Nombre de la Empresa</label>
+                <label htmlFor="companyName" className="block text-sm font-medium text-slate-700 mb-1">Company Name</label>
                 <input
                     type="text"
                     id="companyName"
                     name="companyName"
                     value={formData.companyName}
                     onChange={onFormChange}
-                    placeholder="Ej: Acme Manufacturing S.A."
+                    placeholder="e.g., Acme Manufacturing Inc."
                     required
                     disabled={disabled}
                     className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white text-black disabled:bg-slate-100 disabled:cursor-not-allowed"
                 />
             </div>
             <div>
-                <label htmlFor="countryCode" className="block text-sm font-medium text-slate-700 mb-1">País (para moneda local)</label>
+                <label htmlFor="countryCode" className="block text-sm font-medium text-slate-700 mb-1">Country (for local currency)</label>
                 <select
                     id="countryCode"
                     name="countryCode"
@@ -87,7 +87,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ formData, onForm
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 mb-8">
             <div>
-                <label htmlFor="industryInput" className="block text-sm font-medium text-slate-700 mb-1">Industria</label>
+                <label htmlFor="industryInput" className="block text-sm font-medium text-slate-700 mb-1">Industry</label>
                 <input
                     type="text"
                     id="industryInput"
@@ -96,7 +96,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ formData, onForm
                     onChange={onFormChange}
                     disabled={disabled}
                     list="industry-list"
-                    placeholder="Seleccione o escriba su industria"
+                    placeholder="Select or type your industry"
                     className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white text-black disabled:bg-slate-100 disabled:cursor-not-allowed"
                 />
                 <datalist id="industry-list">
@@ -118,7 +118,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ formData, onForm
                         onChange={onFormChange}
                         disabled={disabled || !availableSectors.length}
                         list="sector-list"
-                        placeholder={availableSectors.length ? "Seleccione o escriba su sector" : "No hay sectores específicos"}
+                        placeholder={availableSectors.length ? "Select or type your sector" : "No specific sectors available"}
                         className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white text-black disabled:bg-slate-100 disabled:cursor-not-allowed"
                     />
                     <datalist id="sector-list">
@@ -132,38 +132,38 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ formData, onForm
         </div>
 
         <div className="border-t border-slate-200 pt-6 mb-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-4">🏢 Estructura de ingeniería</h3>
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">🏢 Engineering Structure</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4">
-                <FormField id="engineers" label="Nº de Ingenieros / Diseñadores" placeholder="Ej: 10" value={formData.engineers} onChange={onFormChange} disabled={disabled} tooltipText="Incluya a todo el personal técnico que participa activamente en el desarrollo y modificación de productos." />
-                <FormField id="numSites" label="Nº de sitios donde hay ingenieros" placeholder="Ej: 2" value={formData.numSites} onChange={onFormChange} disabled={disabled} tooltipText="Indique en cuántas ubicaciones físicas distintas (plantas, oficinas) tiene equipos de ingeniería." />
-                <FormField id="numCountries" label="Nº de países donde hay ingenieros" placeholder="Ej: 1" value={formData.numCountries} onChange={onFormChange} disabled={disabled} tooltipText="Indique en cuántos países diferentes operan sus equipos de ingeniería." />
+                <FormField id="engineers" label="No. of Engineers / Designers" placeholder="e.g., 10" value={formData.engineers} onChange={onFormChange} disabled={disabled} tooltipText="Include all technical staff actively involved in product development and modification." />
+                <FormField id="numSites" label="No. of sites with engineers" placeholder="e.g., 2" value={formData.numSites} onChange={onFormChange} disabled={disabled} tooltipText="Indicate in how many different physical locations (plants, offices) you have engineering teams." />
+                <FormField id="numCountries" label="No. of countries with engineers" placeholder="e.g., 1" value={formData.numCountries} onChange={onFormChange} disabled={disabled} tooltipText="Indicate in how many different countries your engineering teams operate." />
             </div>
         </div>
 
         <div className="border-t border-slate-200 pt-6 mb-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-4">🏭 Producción y operaciones</h3>
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">🏭 Production and Operations</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4">
-                <FormField id="newProducts" label="Nuevos productos / Revisiones al año" placeholder="Ej: 5" value={formData.newProducts} onChange={onFormChange} disabled={disabled} tooltipText="Indique el número total de nuevos productos lanzados o de revisiones mayores a productos existentes que su equipo gestiona anualmente." />
-                <FormField id="reworks" label="Nº de re-trabajos por producto" placeholder="Ej: 3" value={formData.reworks} onChange={onFormChange} disabled={disabled} tooltipText="Indique el número promedio de veces que un producto debe ser re-trabajado debido a errores de diseño o información desactualizada." />
-                <FormField id="delays" label="Semanas de retraso promedio" placeholder="Ej: 2" value={formData.delays} onChange={onFormChange} disabled={disabled} tooltipText="Estime el número promedio de semanas que un proyecto se retrasa respecto a su fecha de lanzamiento planificada." />
+                <FormField id="newProducts" label="New products / revisions per year" placeholder="e.g., 5" value={formData.newProducts} onChange={onFormChange} disabled={disabled} tooltipText="Enter the total number of new products launched or major revisions to existing products your team manages annually." />
+                <FormField id="reworks" label="No. of reworks per product" placeholder="e.g., 3" value={formData.reworks} onChange={onFormChange} disabled={disabled} tooltipText="Indicate the average number of times a product must be reworked due to design errors or outdated information." />
+                <FormField id="delays" label="Average weeks of delay" placeholder="e.g., 2" value={formData.delays} onChange={onFormChange} disabled={disabled} tooltipText="Estimate the average number of weeks a project is delayed from its planned launch date." />
             </div>
         </div>
         
         <div className="border-t border-slate-200 pt-6 mb-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-1">⚙️ Gestión de información</h3>
-            <p className="text-sm text-slate-600 mb-4">¿Dónde se guarda principalmente la información crítica del producto (diseños, BOMs)?</p>
+            <h3 className="text-lg font-semibold text-slate-800 mb-1">⚙️ Information Management</h3>
+            <p className="text-sm text-slate-600 mb-4">Where is critical product information (designs, BOMs) primarily stored?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="custom-radio-label py-4 pr-4 pl-12 border rounded-lg border-slate-300">
                     <input type="radio" name="infoLocation" value="corporate" checked={formData.infoLocation === 'corporate'} onChange={onFormChange} disabled={disabled}/>
                     <span className="checkmark"></span>
-                    <span className="radio-option-text">Sistema corporativo</span>
-                    <span className="radio-option-desc block">Servidores de red, ERP, sistema en la nube</span>
+                    <span className="radio-option-text">Corporate System</span>
+                    <span className="radio-option-desc block">Network servers, ERP, cloud system</span>
                 </label>
                 <label className="custom-radio-label py-4 pr-4 pl-12 border rounded-lg border-slate-300">
                     <input type="radio" name="infoLocation" value="personal_pc" checked={formData.infoLocation === 'personal_pc'} onChange={onFormChange} disabled={disabled}/>
                     <span className="checkmark"></span>
-                    <span className="radio-option-text">PC personal</span>
-                    <span className="radio-option-desc block">Discos duros de los ingenieros, email</span>
+                    <span className="radio-option-text">Personal PC</span>
+                    <span className="radio-option-desc block">Engineers' hard drives, email</span>
                 </label>
             </div>
         </div>
@@ -175,7 +175,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({ formData, onForm
             disabled={isLoading || disabled}
             className="w-full bg-slate-900 text-white font-bold py-3 px-4 rounded-md hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors duration-300 disabled:bg-slate-400 disabled:cursor-not-allowed flex items-center justify-center"
             >
-            {isLoading ? <LoadingSpinner /> : 'Analizar Costos Ocultos'}
+            {isLoading ? <LoadingSpinner /> : 'Analyze Hidden Costs'}
             </button>
         </div>
     </form>
