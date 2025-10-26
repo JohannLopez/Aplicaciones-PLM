@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 import type { FormData, Country, CalculationResult } from '../types';
 import { INDUSTRY_OPTIONS } from '../constants';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 if (!API_KEY) {
     throw new Error("API_KEY environment variable not set");
 }
