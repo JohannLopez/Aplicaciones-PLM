@@ -1,0 +1,5 @@
+{
+  "name": "Calculadora de Costos de Ineficiencia PLM",
+  "description": "Una calculadora avanzada para estimar los costos ocultos de ineficiencia en empresas de manufactura que no utilizan un sistema PLM. La aplicación analiza varios factores como el tiempo de ingeniería, errores de BOM y retrabajos para proporcionar una estimación de costos detallada.",
+  "requestFramePermissions": []
+}
